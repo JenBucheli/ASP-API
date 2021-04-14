@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
+using TodoApi.Data;
 
 namespace TodoApi
 {
@@ -21,9 +22,15 @@ namespace TodoApi
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddDbContext<TodoContext>(opt =>
-                                              //opt.UseInMemoryDatabase("TodoList"));
+            //opt.UseInMemoryDatabase("TodoList"));
+
+           
             services.AddDbContext<TodoContext>(options =>
         options.UseSqlite(Configuration.GetConnectionString("TodoContext")));
+
+            services.AddDbContext<UserContext>(options =>
+       options.UseSqlite(Configuration.GetConnectionString("UserContext")));
+
             services.AddControllers();
             services.AddSwaggerGen();
 
